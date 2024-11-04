@@ -19,9 +19,9 @@ const LoginScreen = () => {
       const token = response.data.token
 
       if (token) {
-        localStorage.setItem('authToken', token)
+        localStorage.setItem('token', token)
         toast.success('Login successful')
-        navigate('/home')
+        navigate('/')
       }
     } catch (error) {
       toast.error(error.response?.data?.message || 'Login failed')

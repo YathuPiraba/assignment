@@ -11,12 +11,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/login' element={<LoginScreen />} />
+        <Route path='/register' element={<RegisterScreen />} />
         <Route path='/' element={<RootLayout />}>
-          <Route path='/home' element={<HomeScreen />} />
+          <Route path='/' element={<HomeScreen />} />
           <Route path='/profile' element={<ProfileScreen />} />
         </Route>
-        <Route path='/' element={<LoginScreen />} />
-        <Route path='/register' element={<RegisterScreen />} />
       </Routes>
     </BrowserRouter>
   )
