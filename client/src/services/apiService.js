@@ -13,7 +13,7 @@ export const getPostsAPI = () => apiClient.get('/posts');
 export const getPostByIdAPI = (id) => apiClient.get(`/post/${id}`);
 
 // Fetch user details (authenticated route)
-export const fetchUserDetailsAPI = () => authApiClient.get('/user/details');
+export const fetchUserDetailsAPI = () => apiClient.get('/user/details');
 
 // Update user details (authenticated route)
 export const updateUserAPI = (id, data) => authApiClient.post(`/user/${id}`, data);
@@ -22,4 +22,4 @@ export const updateUserAPI = (id, data) => authApiClient.post(`/user/${id}`, dat
 export const deleteUserImageAPI = (id) => authApiClient.delete(`/user/${id}/deleteImage`);
 
 // Change user password (authenticated route)
-export const changePasswordAPI = (id, data) => authApiClient.put(`/user/${id}/password`, data);
+export const changePasswordAPI = (id, data) => apiClient.put(`/user/${id}/password`, data);
