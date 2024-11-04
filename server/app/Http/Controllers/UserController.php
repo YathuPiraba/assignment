@@ -63,10 +63,11 @@ class UserController extends Controller
         return response()->json(['message' => 'User logged in successfully', 'token' => $token, 'user' => $user], 200);
     }
 
+
     // Update User Details API
-    public function updateUser(Request $request)
+    public function updateUser(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = User::findOrFail($id); // Retrieve user by ID
 
         // Validate only the fields that are being updated
         $validator = Validator::make($request->all(), [
@@ -108,9 +109,9 @@ class UserController extends Controller
 
 
     // Delete User Image API
-    public function deleteUserImage()
+    public function deleteUserImage($id)
     {
-        $user = auth()->user();
+        $user = User::findOrFail($id); // Retrieve user by ID
 
         if ($user->image) {
             Storage::delete('public/' . basename($user->image));
@@ -122,10 +123,11 @@ class UserController extends Controller
         return response()->json(['message' => 'No image found'], 404);
     }
 
+
     // Change Password API
-    public function changePassword(Request $request)
+    public function changePassword(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = User::findOrFail($id); // Retrieve user by ID
 
         $validator = Validator::make($request->all(), [
             'current_password' => 'required|string',
