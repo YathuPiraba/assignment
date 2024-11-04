@@ -6,6 +6,8 @@ export const registerUserAPI = (data) => apiClient.post('/register', data);
 // Login a user
 export const loginUserAPI = (data) => apiClient.post('/login', data);
 
+export const logoutUserAPI = () => apiClient.post('/logout');
+
 // Fetch all posts
 export const getPostsAPI = () => apiClient.get('/posts');
 

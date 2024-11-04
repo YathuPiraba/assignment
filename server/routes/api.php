@@ -21,6 +21,7 @@ Route::post('/register', [UserController::class, 'register']);
 
 // Login user
 Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout']);
 Route::get('/posts', [PostController::class, 'getPosts']);
 Route::get('/post/{id}', [PostController::class, 'getPost']);
 
