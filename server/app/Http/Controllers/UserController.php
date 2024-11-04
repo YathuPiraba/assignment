@@ -150,4 +150,11 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Password changed successfully'], 200);
     }
+
+    //Log out api
+    public function logout(Request $request)
+    {
+        // Return a 200 OK response
+        return response()->json(['message' => 'Logged out successfully'], 200);
+    }
 }
