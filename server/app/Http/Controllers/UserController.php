@@ -34,7 +34,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $imagePath ? Storage::url($imagePath) : null,
+            'image' => $imagePath ? asset('storage/' . $imagePath) : null,
         ]);
 
         return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
@@ -67,9 +67,8 @@ class UserController extends Controller
     // Update User Details API
     public function updateUser(Request $request, $id)
     {
-        $user = User::findOrFail($id); // Retrieve user by ID
+        $user = User::findOrFail($id);
 
-        // Validate only the fields that are being updated
         $validator = Validator::make($request->all(), [
             'username' => 'nullable|string|max:255|unique:users,username,' . $user->id,
             'email' => 'nullable|string|email|max:255|unique:users,email,' . $user->id,
@@ -80,38 +79,34 @@ class UserController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        // Update username if provided
+        // Update username and email if provided
         if ($request->has('username')) {
             $user->username = $request->username;
         }
-
-        // Update email if provided
         if ($request->has('email')) {
             $user->email = $request->email;
         }
 
         // Store new image if uploaded and delete old one
         if ($request->hasFile('image')) {
-            // Delete old image if it exists
             if ($user->image) {
                 Storage::delete('public/' . basename($user->image));
             }
-            // Store the new image and set the user's image path
             $imagePath = $request->file('image')->store('images', 'public');
-            $user->image = Storage::url($imagePath);
+            $user->image = asset('storage/' . $imagePath);
         }
 
-        // Save the updated user
         $user->save();
 
         return response()->json(['message' => 'User details updated successfully', 'user' => $user], 200);
     }
 
 
+
     // Delete User Image API
     public function deleteUserImage($id)
     {
-        $user = User::findOrFail($id); // Retrieve user by ID
+        $user = User::findOrFail($id);
 
         if ($user->image) {
             Storage::delete('public/' . basename($user->image));
