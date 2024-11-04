@@ -4,12 +4,17 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LoginScreen from './Screens/LoginScreen'
 import RegisterScreen from './Screens/RegisterScreen'
 import HomeScreen from './Screens/HomeScreen'
+import RootLayout from './Layout/RootLayout'
+import ProfileScreen from './Screens/ProfileScreen'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<HomeScreen />} />
+        <Route path='/' element={<RootLayout />}>
+          <Route path='/' element={<HomeScreen />} />
+          <Route path='/profile' element={<ProfileScreen />} />
+        </Route>
         <Route path='/login' element={<LoginScreen />} />
         <Route path='/register' element={<RegisterScreen />} />
       </Routes>
