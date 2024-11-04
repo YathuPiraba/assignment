@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { LogOut } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function NavbarAvatar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false)
@@ -56,8 +57,8 @@ export default function NavbarAvatar() {
             {/*      <!-- Navigation links --> */}
             <div className='flex items-center px-6 ml-auto lg:ml-0 lg:p-0'>
               {/*        <!-- Avatar --> */}
-              <a
-                href='#'
+              <Link
+                to='/profile'
                 className='relative inline-flex items-center justify-center w-10 h-10 text-white rounded-full'
               >
                 <img
@@ -71,7 +72,7 @@ export default function NavbarAvatar() {
                 <span className='absolute bottom-0 right-0 inline-flex items-center justify-center gap-1 p-1 text-sm text-white bg-pink-500 border-2 border-white rounded-full'>
                   <span className='sr-only'> 7 new emails </span>
                 </span>
-              </a>
+              </Link>
               {/*        <!-- End Avatar --> */}
             </div>
             <ul
