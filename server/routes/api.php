@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Register a new user
+Route::post('/register', [UserController::class, 'register']);
+
+// Login user
+Route::post('/login', [UserController::class, 'login']);
+Route::get('/posts', [PostController::class, 'getPosts']);
+Route::get('/post/{id}', [PostController::class, 'getPost']);
+
+// Protected routes (requires authentication)
+Route::middleware('auth:sanctum')->group(function () {
+
+    // Update user details
+    Route::put('/user', [UserController::class, 'updateUser']);
+
+    // Delete user image
+    Route::delete('/user/image', [UserController::class, 'deleteUserImage']);
+
+    // Change user password
+    Route::put('/user/password', [UserController::class, 'changePassword']);
 });
