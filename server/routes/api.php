@@ -27,8 +27,8 @@ Route::get('/post/{id}', [PostController::class, 'getPost']);
 // Protected routes (requires authentication)
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::post('api/user/{id}', [UserController::class, 'updateUser']); // Update User
-    Route::delete('api/user/{id}/image', [UserController::class, 'deleteUserImage']); // Delete User Image
-    Route::put('api/user/{id}/password', [UserController::class, 'changePassword']); // Change Password
+    Route::post('user/{id}', [UserController::class, 'updateUser']); // Update User
+    Route::delete('user/{id}/image', [UserController::class, 'deleteUserImage']); // Delete User Image
+    Route::put('user/{id}/password', [UserController::class, 'changePassword']); // Change Password
 
 });
