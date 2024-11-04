@@ -60,8 +60,16 @@ class UserController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['message' => 'User logged in successfully', 'token' => $token, 'user' => $user], 200);
+        return response()->json(['token' => $token], 200);
     }
+
+    public function fetchUserDetails()
+    {
+        $user = auth()->user();
+
+        return response()->json(['user' => $user], 200);
+    }
+
 
 
     // Update User Details API

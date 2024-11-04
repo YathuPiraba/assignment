@@ -3,7 +3,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-// import { loginUser } from '../services/apiService'
+import { loginUserAPI} from '../services/apiService'
 import toast from 'react-hot-toast'
 
 const LoginScreen = () => {
@@ -14,13 +14,18 @@ const LoginScreen = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // try {
-    //   const user = await loginUser(username, password)
-    //   console.log('User: ' + user)
-    //   navigate('/')
-    // } catch (error) {
-    //   toast.error(error.message || 'Login failed')
-    // }
+    try {
+      const response = await loginUserAPI({ username, password })
+      const token = response.data.token
+
+      if (token) {
+        localStorage.setItem('authToken', token)
+        toast.success('Login successful')
+        navigate('/home')
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Login failed')
+    }
   }
 
   return (
