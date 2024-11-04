@@ -24,7 +24,7 @@ class UserController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        // Store image if uploaded
+        // Store image if uploaded and save only relative path
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
@@ -34,7 +34,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $imagePath ? asset('storage/' . $imagePath) : null,
+            'image' => $imagePath, // Store only the relative path
         ]);
 
         return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
@@ -90,10 +90,10 @@ class UserController extends Controller
         // Store new image if uploaded and delete old one
         if ($request->hasFile('image')) {
             if ($user->image) {
-                Storage::delete('public/' . basename($user->image));
+                Storage::delete('public/' . $user->image);
             }
             $imagePath = $request->file('image')->store('images', 'public');
-            $user->image = asset('storage/' . $imagePath);
+            $user->image = $imagePath; // Store only the relative path
         }
 
         $user->save();
